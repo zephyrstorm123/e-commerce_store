@@ -33,6 +33,8 @@ export const CellAction: React.FC<CellActionProps> = ({
     const onDelete = async () => {
         try {
             setLoading(true)
+            //Delete the billboard
+                //data.id is used instead because this is a seperate data structure
             await axios.delete(`/api/${params.storeId}/billboards/${data.id}`)
             router.refresh()
             toast.success('Billboard deleted successfully')
