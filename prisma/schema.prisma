@@ -16,19 +16,38 @@ model Store {
   name      String
   userId    String
   billboards Billboard[] @relation("StoreToBillboard")
+  categories Category[] @relation("StoreToCategory")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
-//to add this schema use `npx prisma generate`
+//to add this schema use `npx prisma generate` then `npx prisma db push`
 model Billboard{
   id        String    @id @default(uuid())
   storeId   String
   store     Store     @relation("StoreToBillboard", fields: [storeId], references: [id])
   label     String
   imageUrl  String
+  categories Category[] @relation("BillboardToCategory")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
   @@index([storeId])
 }
+
+model Category{
+  id String @id @default(uuid())
+  storeId String
+  store  Store   @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboardId String
+  billboard   Billboard   @relation("BillboardToCategory", fields: [billboardId], references: [id])
+  name String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  //Used to make sure that a category is unique to a billboard by using foreign keys
+  @@index([storeId])
+  @@index([billboardId])
+}
+
+

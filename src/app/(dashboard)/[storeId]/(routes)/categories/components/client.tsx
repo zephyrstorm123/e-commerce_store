@@ -7,15 +7,15 @@ import { useParams, useRouter } from "next/navigation"
 import {Plus} from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 
-import { BillboardColumn, columns } from "./columns"
+import { CategoryColumn, columns } from "./columns"
 import { DataTable } from "@/components/ui/data-table"
 import { ApiList } from "@/components/ui/api-list"
 
-interface BillboardClientProps {
-    data: BillboardColumn[]
+interface CategoryClientProps {
+    data: CategoryColumn[]
 }
 
-export const BillboardClient: React.FC<BillboardClientProps> = ({
+export const CategoryClient: React.FC<CategoryClientProps> = ({
     data
 }) => {
     
@@ -27,12 +27,12 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({
         <>
             <div className="flex items-center justify-between">
                 <Heading 
-                    title={`Billboards (${data.length})`}
-                    description="Manage Billboards for your store"  
+                    title={`Categories (${data.length})`}
+                    description="Manage Categories for your store"  
                 />
                 <Button
                     //This syntax is to path to billboard/[billboardId] the thing is new is not a billboardId soo it is just used to trigger a create a new billboard page
-                    onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+                    onClick={() => router.push(`/${params.storeId}/categories/new`)}
                 >
                     <Plus className="mr-2 h-4 w-4"/>
                     Add New
@@ -46,12 +46,12 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({
                 />
                 <Heading 
                     title="API"
-                    description="API calls for Billboards"
+                    description="API calls for Categories"
                 />
             <Separator />
                 <ApiList 
-                    entityName="billboards"
-                    entityIdName="billboardId"
+                    entityName="categories"
+                    entityIdName="categoryId"
                 />
         </>
     )
